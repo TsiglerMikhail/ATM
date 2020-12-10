@@ -2,6 +2,7 @@ package ru.example.bank;
 
 
 import ru.example.atm.Card;
+import ru.example.atm.ValidateInputException;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -18,8 +19,11 @@ public class Data {
         initData();
     }
     
-    public Cash getBalance(String cardNumber){
-        transactions.add(new Transaction(cardNumber, TransactionType.GETBALANCE));
+    public Cash getBalance(String cardNumber) throws DuplicateTransactionException {
+        Transaction tmp = new Transaction(cardNumber, TransactionType.GETBALANCE);
+//        if(transactions.contains(tmp))
+//            throw new DuplicateTransactionException("Дубликат операции");
+        transactions.add(tmp);
         return balance.get(cardNumber);
     }
 
@@ -30,9 +34,9 @@ public class Data {
         return false;
     }
 
-    public boolean minusBalance(String cardNumber, BigDecimal sum){
-//        Cash oldValue = balance.get(cardNumber);
-//        balance.replace(cardNumber, new Cash(oldValue.getBalance().subtract(sum), oldValue.getCurrency()));
+    public boolean minusBalance(String cardNumber, BigDecimal sum) throws DuplicateTransactionException {
+//        if(transactions.contains(tmp))
+//            throw new DuplicateTransactionException("Дубликат операции");
         transactions.add(new Transaction(cardNumber, TransactionType.GIVEOUTCASH));
         balance.replace(cardNumber, balance.get(cardNumber).subtract(sum));
         return true;

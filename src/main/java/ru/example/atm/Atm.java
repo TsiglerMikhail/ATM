@@ -2,6 +2,7 @@ package ru.example.atm;
 
 import ru.example.bank.Cash;
 import ru.example.bank.Data;
+import ru.example.bank.DuplicateTransactionException;
 
 import java.math.BigDecimal;
 
@@ -25,14 +26,14 @@ public class Atm {
         this.bd=new Data();
     }
 
-    public String showBalance(Card card) {
+    public String showBalance(Card card) throws DuplicateTransactionException {
         if (bd.authentication(card)) {
             return "На счете:\t" + bd.getBalance(card.getCardNumber());
         }
         return "Ошибка аутентификации";
     }
 
-    public String giveOutCash(Card card, int sum){
+    public String giveOutCash(Card card, int sum) throws DuplicateTransactionException {
         if (bd.authentication(card)) {
             Cash tmp = bd.getBalance(card.getCardNumber());
             if(tmp.getCurrency() == this.cash.getCurrency()) {

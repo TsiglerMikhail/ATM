@@ -4,11 +4,11 @@ import ru.example.atm.Atm;
 import ru.example.atm.Card;
 import ru.example.atm.ValidateInputException;
 import ru.example.bank.Currency;
-
+import ru.example.bank.DuplicateTransactionException;
 
 
 public class Main {
-    public static void main(String[] args) throws ValidateInputException {
+    public static void main(String[] args) throws ValidateInputException, DuplicateTransactionException {
         Card testCard = new Card("1234567894111111","1238" );
         Atm testAtm = new Atm("123",true, 99999);
         System.out.println(testAtm.showBalance(testCard));
