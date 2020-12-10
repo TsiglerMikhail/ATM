@@ -20,10 +20,10 @@ public class Data {
     }
     
     public Cash getBalance(String cardNumber) throws DuplicateTransactionException {
-        Transaction tmp = new Transaction(cardNumber, TransactionType.GETBALANCE);
-//        if(transactions.contains(tmp))
+        Transaction transaction = new Transaction(cardNumber, TransactionType.GETBALANCE);
+//        if(transactions.contains(transaction))
 //            throw new DuplicateTransactionException("Дубликат операции");
-        transactions.add(tmp);
+        transactions.add(transaction);
         return balance.get(cardNumber);
     }
 
@@ -35,9 +35,10 @@ public class Data {
     }
 
     public boolean minusBalance(String cardNumber, BigDecimal sum) throws DuplicateTransactionException {
-//        if(transactions.contains(tmp))
+        Transaction transaction = new Transaction(cardNumber, TransactionType.GIVEOUTCASH);
+//        if(transactions.contains(transaction))
 //            throw new DuplicateTransactionException("Дубликат операции");
-        transactions.add(new Transaction(cardNumber, TransactionType.GIVEOUTCASH));
+        transactions.add(transaction);
         balance.replace(cardNumber, balance.get(cardNumber).subtract(sum));
         return true;
     }
