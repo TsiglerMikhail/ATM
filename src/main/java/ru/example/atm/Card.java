@@ -1,17 +1,21 @@
 package ru.example.atm;
 
-//import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+
 
 @Getter
-//@AllArgsConstructor
-public class Card {
+@NonNull
+@NoArgsConstructor
+public class Card<T extends TypeCard > {
+    private String cardNumber;
+    private String pin;
+    private T typeCard;
 
-    private final String cardNumber;
-    private final String pin;
 
-    public Card(String cardNumber, String pin) throws ValidateInputException{
-        // 292Шилд
+    public Card(String cardNumber, String pin, T typeCard) throws ValidateInputException{
+
         if(cardNumber.matches("^[0-9]{16}$")) {
             this.cardNumber = cardNumber;
         }
@@ -25,5 +29,10 @@ public class Card {
             throw new ValidateInputException("Не корректный пин");
         }
 
+        this.typeCard=typeCard;
+
     }
+
+
+
 }
