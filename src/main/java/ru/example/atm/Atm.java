@@ -1,29 +1,36 @@
 package ru.example.atm;
 
-import ru.example.bank.Cash;
-import ru.example.bank.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import ru.example.common.Card;
+import ru.example.common.Cash;
+import ru.example.bank.Bank;
 import ru.example.bank.DuplicateTransactionException;
 
 import java.math.BigDecimal;
-
+@Component
+@NoArgsConstructor
 public class Atm {
     private String atmID;
-    private boolean isAlive;
-    private Cash cash;
-    private Data bd;
+    private boolean isAlive = true;
+    private Cash cash = new Cash(0);
+    @Autowired
+    private Bank bd;
+
 
     public Atm(String atmID, boolean isAlive) {
         this.atmID = atmID;
         this.isAlive = isAlive;
         this.cash = new Cash(0);
-        this.bd=new Data();
+        this.bd=new Bank();
     }
 
     public Atm(String atmID, boolean isAlive, int cash) {
         this.atmID = atmID;
         this.isAlive = isAlive;
         this.cash = new Cash(cash);
-        this.bd=new Data();
+        this.bd=new Bank();
     }
 
     public String showBalance(Card card) throws DuplicateTransactionException {
@@ -33,7 +40,7 @@ public class Atm {
         return "Ошибка аутентификации";
     }
 
-    public String giveOutCash(Card card, int sum) throws DuplicateTransactionException {
+        public String giveOutCash(Card card, int sum) throws DuplicateTransactionException {
         if (bd.authentication(card)) {
             Cash tmp = bd.getBalance(card.getCardNumber());
             if(tmp.getCurrency() == this.cash.getCurrency()) {

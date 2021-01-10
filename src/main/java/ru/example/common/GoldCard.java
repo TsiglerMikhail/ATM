@@ -1,4 +1,4 @@
-package ru.example.atm;
+package ru.example.common;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

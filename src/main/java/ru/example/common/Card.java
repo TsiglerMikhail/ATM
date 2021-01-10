@@ -1,8 +1,9 @@
-package ru.example.atm;
+package ru.example.common;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import ru.example.atm.ValidateInputException;
 
 
 @Getter
@@ -14,7 +15,7 @@ public class Card<T extends TypeCard > {
     private T typeCard;
 
 
-    public Card(String cardNumber, String pin, T typeCard) throws ValidateInputException{
+    public Card(String cardNumber, String pin, T typeCard) throws ValidateInputException {
 
         if(cardNumber.matches("^[0-9]{16}$")) {
             this.cardNumber = cardNumber;

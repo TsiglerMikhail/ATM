@@ -1,4 +1,4 @@
-package ru.example.bank;
+package ru.example.common;
 
 public enum Currency {
     RUR,
