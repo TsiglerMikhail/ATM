@@ -1,4 +1,4 @@
-package ru.example.bank;
+package ru.example.common;
 
 //import lombok.AllArgsConstructor;
 import lombok.Getter;

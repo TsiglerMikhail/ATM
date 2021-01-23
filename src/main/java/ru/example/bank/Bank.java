@@ -1,21 +1,25 @@
 package ru.example.bank;
 
 
-import ru.example.atm.Card;
-import ru.example.atm.ValidateInputException;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
+import ru.example.common.Card;
+import ru.example.common.Cash;
+import ru.example.common.Currency;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.HashSet;
 
-public class Data {
+@Slf4j
+@Component
+public class Bank {
 
     private HashMap<String, String> accounts = new HashMap<>();
     private HashMap<String, Cash> balance = new HashMap<>();
     private HashSet<Transaction> transactions = new HashSet<>();
 
-
-    public Data() {
+    public Bank() {
         initData();
     }
     
@@ -38,6 +42,7 @@ public class Data {
         Transaction transaction = new Transaction(cardNumber, TransactionType.GIVEOUTCASH);
 //        if(transactions.contains(transaction))
 //            throw new DuplicateTransactionException("Дубликат операции");
+
         transactions.add(transaction);
         balance.replace(cardNumber, balance.get(cardNumber).subtract(sum));
         return true;
